@@ -2,7 +2,7 @@
 import axios from "axios";
 import { onMounted, ref } from "vue";
 
-defineProps<{ msg: string }>();
+defineProps<{ msg?: string }>();
 </script>
 
 <template>
@@ -14,9 +14,3 @@ defineProps<{ msg: string }>();
     </div>
   </div>
 </template>
-
-<style scoped>
-.read-the-docs {
-  color: #888;
-}
-</style>

@@ -7,6 +7,8 @@ import { createServer } from "http";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { Server } from "socket.io";
+import history from "connect-history-api-fallback";
+import { useSocketIoServer } from "./socket.io/server";
 
 dotenv.config();
 
@@ -16,23 +18,39 @@ dotenv.config();
  * from the `process.env`
  */
 const app = express();
-const server = createServer(app);
-const io = new Server(server);
 app.use(express.json()); // Accept and parse JSON data.
 app.use(cors()); // Enable CORS for all requests.
+
+const server = createServer(app);
+
+useSocketIoServer(server);
+
 const port = process.env.PORT || 3000;
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
+// app.use("/", express.static(join(__dirname, "/../../caspargus_fe/dist")));
+
+// const staticFileMiddleware = express.static(
+//   __dirname + "/../../caspargus_fe/dist"
+// );
+// app.use(staticFileMiddleware);
+// app.use(
+//   history({
+//     disableDotRule: true,
+//     verbose: true,
+//   })
+// );
+// app.use(staticFileMiddleware);
+
 app.get("/", (req, res) => {
-  res.sendFile(join(__dirname, "index.html"));
+  res.sendFile(join(__dirname, "/index.html"));
 });
 
-io.on('connection', (socket) => {
-  socket.on('chat message', (msg) => {
-    io.emit('chat message', msg);
-  });
-});
+// app.get("/", (req, res) => {
+//   // send a hello world response
+//   res.send("Hello, World!");
+// });
 
 // app.use("/dataProxy", dataProxyRouter);
 

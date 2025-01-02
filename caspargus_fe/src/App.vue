@@ -2,6 +2,7 @@
 
 <template>
   <div class="size-full relative flex flex-row">
+    <div id="messages"></div>
     <!-- <a href="https://vite.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
