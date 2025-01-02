@@ -7,7 +7,7 @@
   "scripts": {
     "build": "npx tsc",
     "start": "npx tsx src/index.ts",
-    "dev": "nodemon src/index.ts",
+    "dev": "nodemon -x tsx src/index.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {

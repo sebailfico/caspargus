@@ -28,17 +28,19 @@ app.get("/", (req, res) => {
   res.sendFile(join(__dirname, "index.html"));
 });
 
-io.on("connection", (socket) => {
-  console.log("a user connected");
+io.on('connection', (socket) => {
+  socket.on('chat message', (msg) => {
+    io.emit('chat message', msg);
+  });
 });
 
-app.use("/dataProxy", dataProxyRouter);
+// app.use("/dataProxy", dataProxyRouter);
 
-//Custom Middlware
-app.use((req, res, next) => {
-  console.log(`A ${req.method} request was made to ${req.url}`);
-  next();
-});
+// //Custom Middlware
+// app.use((req, res, next) => {
+//   console.log(`A ${req.method} request was made to ${req.url}`);
+//   next();
+// });
 
 /* Start the Express app and listen
  for incoming requests on the specified port */
