@@ -187,3 +187,31 @@ _                        _               _
     opacity: 0;
   }
 }
+
+.horizontal-animation {
+  /* animation: verticalMove 1s steps(1) infinite; */
+  animation: horizontalMove 0.5s 1 cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+@keyframes horizontalMove {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(0);
+  }
+}
+
+.vertical-animation {
+  /* animation: verticalMove 1s steps(1) infinite; */
+  animation: verticalMove 1.5s 1 cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+@keyframes verticalMove {
+  0% {
+    transform: translateY(100vh);
+  }
+  100% {
+    transform: translateY(0);
+  }
+}

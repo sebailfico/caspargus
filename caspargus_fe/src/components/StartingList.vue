@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import axios from "axios";
 import { onMounted, ref } from "vue";
 import type { Skiffer } from "../models/skiffer";
 
 defineProps<{ msg?: string }>();
+const skiffers = ref<Skiffer[]>([]);
 
-const count = ref(0);
-
-const skiffers = ref<Skiffer[]>([
+const skiffersTmp: Skiffer[] = [
   {
     ReportType: "Last Arrival",
     Contest: "Last Arrival",
@@ -59,7 +57,16 @@ const skiffers = ref<Skiffer[]>([
     Bonus: "",
     ResultsFinal: "",
   },
-]);
+];
+
+onMounted(() => {
+  setTimeout(async () => {
+    for (let i = 0; i < 10 && i < skiffersTmp.length; i++) {
+      skiffers.value.push(skiffersTmp[i]);
+      await new Promise((resolve) => setTimeout(resolve, 500));
+    }
+  }, 10);
+});
 
 // onMounted(() => {
 //   axios
@@ -76,16 +83,34 @@ const skiffers = ref<Skiffer[]>([
 
 <template>
   <div
-    class="absolute top-0 h-full left-1/2 -translate-x-1/2 w-[50%] elev-4 flenter"
+    class="absolute top-0 h-full left-1/2 -translate-x-1/2 w-[50%] elev-4 flenter overflow-hidden"
   >
-    <div class="grid grid-cols-1 gap-4">
+    <div class="grid grid-cols-1 gap-4 w-full">
+      <div
+        v-for="(sk, index) in skiffersTmp"
+        v-bind:key="sk.UCICode"
+        class="h-[6rem] w-full pl-4"
+      >
+        <div
+          v-if="skiffers[index]"
+          class="flenter size-full text-4xl weight-700 text-white rounded-t bg-indigo-950 bg-gradient-to-r from-indigo-500 vertical-animation"
+        >
+          {{ sk.Rank }}. {{ sk.Lastname }} {{ sk.Firstname }} ({{ sk.Nation }})
+        </div>
+      </div>
+    </div>
+
+    <!-- <div
+      class="grid grid-cols-1 gap-4 w-full"
+      :class="`h-[${(7 + 1 + 1) * skiffersTmp.length}rem]`"
+    >
       <div
         v-for="sk in skiffers"
         v-bind:key="sk.UCICode"
-        class="h-20 w-full flefter pl-4 text-4xl weight-700 text-white rounded-t bg-indigo-950 bg-gradient-to-r from-indigo-500"
+        class="h-[7rem] w-full flefter pl-4 text-4xl weight-700 text-white rounded-t bg-indigo-950 bg-gradient-to-r from-indigo-500 vertical-animation"
       >
         {{ sk.Rank }}. {{ sk.Lastname }} {{ sk.Firstname }} ({{ sk.Nation }})
       </div>
-    </div>
+    </div> -->
   </div>
 </template>
