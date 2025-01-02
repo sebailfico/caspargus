@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: black;
+  background-color: transparent;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: #646cff;
+  text-decoration: inherit;
+}
+a:hover {
+  color: #535bf2;
+}
+
+body {
+  margin: 0;
+  display: flex;
+  place-items: center;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.card {
+  padding: 2em;
+}
+
+#app {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+/* @media (prefers-color-scheme: light) {
+  :root {
+    color: #213547;
+    background-color: #ffffff;
+  }
+  a:hover {
+    color: #747bff;
+  }
+  button {
+    background-color: #040404;
+  }
+} */
+
+.flenter {
+  display: flex;
+  flex-direction: row !important;
+  justify-content: center;
+  align-items: center;
+}
+
+.flefter {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.frigther {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.text-2xs {
+  font-size: 0.625rem;
+  line-height: 0.75rem;
+}
+
+/* https://patorjk.com/software/taag/#p=display&f=Ogre
+_                        _               _               
+| |__   _____  __     ___| |__   __ _  __| | _____      __
+| '_ \ / _ \ \/ /____/ __| '_ \ / _` |/ _` |/ _ \ \ /\ / /
+| |_) | (_) >  <_____\__ \ | | | (_| | (_| | (_) \ V  V / 
+|_.__/ \___/_/\_\    |___/_| |_|\__,_|\__,_|\___/ \_/\_/  
+
+*/
+
+.emphasis:after {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  top: 0;
+  bottom: 0;
+  left: 0px;
+  right: 0px;
+  opacity: 1;
+  transition: opacity 0.5s linear;
+  box-shadow: inset 0px 3px 3px 2px rgba(255, 255, 255, 0.12),
+    0 2.8px 2.2px rgba(0, 0, 0, 0.05), 0 6.7px 5.3px rgba(0, 0, 0, 0.09),
+    0 12.5px 10px rgba(0, 0, 0, 0.12), 0 22.3px 17.9px rgba(0, 0, 0, 0.13),
+    0 41.8px 33.4px rgba(0, 0, 0, 0.15);
+  /* 0 100px 80px rgba(0, 0, 0, 0.23); */
+}
+
+.shadow-4 {
+  box-shadow: 0px 10px 12px 5px rgba(0, 0, 0, 0.25);
+}
+
+.shadow-2 {
+  box-shadow: 0px 3px 4px 2px rgba(0, 0, 0, 0.2);
+}
+
+.elev-1 {
+  box-shadow: inset 1px 2px 1px 1px rgba(255, 255, 255, 0.04),
+    0px 2px 2px 1px rgba(0, 0, 0, 0.1);
+}
+
+.elev-2 {
+  box-shadow: inset 2px 3px 2px 1px rgba(255, 255, 255, 0.09),
+    0px 3px 4px 2px rgba(0, 0, 0, 0.2);
+}
+
+.elev-4 {
+  box-shadow: 0px -5px 15px 2px rgba(255, 255, 255, 1);
+}
+
+.-elev-1 {
+  box-shadow: inset 0px 2px 2px 1px rgba(0, 0, 0, 0.1),
+    1px 2px 1px 1px rgba(255, 255, 255, 0.04);
+}
+
+.-elev-2 {
+  box-shadow: inset 0px 3px 4px 2px rgba(0, 0, 0, 0.2),
+    2px 3px 2px 1px rgba(255, 255, 255, 0.09);
+}
+
+.tabs > .tab-active {
+  box-shadow: inset 1px 2px 1px 1px rgba(255, 255, 255, 0.08),
+    inset -1px -2px 2px 1px rgba(0, 0, 0, 0.3);
+}
+
+/* 
+             _                 _   _             
+  __ _ _ __ (_)_ __ ___   __ _| |_(_) ___  _ __  
+ / _` | '_ \| | '_ ` _ \ / _` | __| |/ _ \| '_ \ 
+| (_| | | | | | | | | | | (_| | |_| | (_) | | | |
+ \__,_|_| |_|_|_| |_| |_|\__,_|\__|_|\___/|_| |_|
+                                                 
+ */
+
+.blink-me {
+  animation: blinker 1s linear infinite;
+}
+
+@keyframes blinker {
+  50% {
+    opacity: 0;
+  }
+}
