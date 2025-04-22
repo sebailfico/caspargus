@@ -9,6 +9,7 @@ import { dirname, join } from "node:path";
 import { Server } from "socket.io";
 import history from "connect-history-api-fallback";
 import { useSocketIoServer } from "./socket.io/server";
+import { MongoService } from "./services/mongoService";
 
 dotenv.config();
 
@@ -22,12 +23,15 @@ app.use(express.json()); // Accept and parse JSON data.
 app.use(cors()); // Enable CORS for all requests.
 
 const server = createServer(app);
-
 useSocketIoServer(server);
 
 const port = process.env.PORT || 3000;
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
+
+export const mongoService = new MongoService();
+
+mongoService.connect();
 
 // app.use("/", express.static(join(__dirname, "/../../caspargus_fe/dist")));
 
@@ -65,6 +69,7 @@ app.get("/", (req, res) => {
 // app.listen(port, () => {
 //   console.log(`[server]: Server is running at http://localhost:${port}`);
 // });
+
 server.listen(port, () => {
   console.log(`server running at http://localhost:${port}`);
 });
