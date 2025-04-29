@@ -1,4 +1,4 @@
-export interface ICaspargusEvent {
+export interface ICaspargusEventSummary {
   _id: string;
   createdAt: Date;
   updatedAt: Date;

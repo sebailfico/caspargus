@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import { useSocketStore } from "../stores/socketStore";
 
-
 defineProps<{ id: string }>();
 
 const socketStore = useSocketStore();
@@ -46,5 +45,8 @@ function onComponentChange(cmp: string) {
     <!-- <div class="relative w-full aspect-video bottom-0">
       <LiveView />
     </div> -->
+    <div v-if="socketStore.error" class="absolute bottom-0 left-0 w-full bg-red-500 text-white p-2 text-center">
+      Error: {{ socketStore.error }}
+    </div>
   </div>
 </template>

@@ -1,5 +1,5 @@
 import mongoose, { Schema, Model } from "mongoose";
-import { ICaspargusEventSummary } from "../models/CaspargusEvent";
+import { ICaspargusEventSummary } from "../models/ICaspargusEventSummary";
 import { randomUUID } from "crypto";
 export class MongoService {
   //   connection = mongoose.connection;
@@ -24,19 +24,9 @@ export class MongoService {
     });
 
     this.eventModel = mongoose.model<ICaspargusEventSummary>(
-      "Event",
+      "EventSummary",
       this.eventSchema
     );
-
-    /* const eventSchema = new mongoose.Schema<ICaspargusEvent>();
-
-    eventSchema.loadClass(CaspargusEvent);
-
-    const CaspEvent = mongoose.model("Event", eventSchema);
-
-    CaspEvent.create(new CaspargusEvent("Frienco")).then((result) => {
-      console.log(result);
-    }); */
   }
 
   async getEvents() {

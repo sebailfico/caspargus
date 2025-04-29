@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import LowerThird from "../components/LowerThird.vue";
-import StartingList from "../components/StartingList.vue";
+import LowerThird from "../../components/LowerThird.vue";
+import StartingList from "../../components/StartingList.vue";
 import { useSocketStore } from "../stores/socketStore";
 
 defineProps<{ msg?: string }>();

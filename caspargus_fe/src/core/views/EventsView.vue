@@ -34,7 +34,14 @@ function createEvent() {
 
       <ul class="list bg-base-100 rounded-box shadow-md mb-6">
 
-        <li class="p-4 pb-2 text-xs opacity-60 tracking-wide">Available Events</li>
+        <li class="p-4  text-xs opacity-60 tracking-wide flenter">
+          <template v-if="socketStore.events.length > 0">
+            Available Events
+          </template>
+          <template v-else>
+            Please create an event
+          </template>
+        </li>
 
         <li class="list-row flex flex-row  " v-for="event in socketStore.events" :key="event._id">
           <!-- <div><img class="size-10 rounded-box" src="https://img.daisyui.com/images/profile/demo/1@94.webp" /></div> -->
@@ -82,5 +89,8 @@ function createEvent() {
     <!--     <div class="relative w-full aspect-video bottom-0">
       <LiveView />
     </div> -->
+    <div v-if="socketStore.error" class="absolute bottom-0 left-0 w-full bg-red-500 text-white p-2 text-center">
+      Error: {{ socketStore.error }}
+    </div>
   </div>
 </template>

@@ -1,7 +1,7 @@
 import { defineStore } from "pinia";
 import { io } from "socket.io-client";
 import { ref } from "vue";
-import type { ICaspargusEvent } from "../models/caspargusEvent";
+import type { ICaspargusEventSummary } from "../models/ICaspargusEventSummary";
 
 export interface ISocketResponse<T> {
   result: T;
@@ -10,8 +10,9 @@ export interface ISocketResponse<T> {
 export const useSocketStore = defineStore("socket", () => {
   // STATE
   const liveComponent = ref("");
-  const events = ref<ICaspargusEvent[]>([]);
+  const events = ref<ICaspargusEventSummary[]>([]);
   const socket = io("http://localhost:6969");
+  const error = ref("");
 
   // GETTERS
 
@@ -30,7 +31,7 @@ export const useSocketStore = defineStore("socket", () => {
 
   // WATCHERS
 
-  socket.on("events", (data: ICaspargusEvent[]) => {
+  socket.on("events", (data: ICaspargusEventSummary[]) => {
     console.log("Got events", data);
     events.value = data;
   });
@@ -40,10 +41,21 @@ export const useSocketStore = defineStore("socket", () => {
     liveComponent.value = data;
   });
 
+  socket.on("connect_error", (errorMessage: Error) => {
+    console.error("Socket error:", errorMessage);
+    error.value = errorMessage.message;
+  });
+
+  socket.on("connect", () => {
+    console.log("Connected to server");
+    error.value = "";
+  });
+
   return {
     // STATE
     liveComponent,
     events,
+    error,
     //ACTIONS
     createEvent,
     getEvents,
