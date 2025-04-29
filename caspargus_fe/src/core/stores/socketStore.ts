@@ -10,7 +10,6 @@ export interface ISocketResponse<T> {
 export const useSocketStore = defineStore("socket", () => {
   // STATE
   const liveComponent = ref("");
-  const events = ref<ICaspargusEventSummary[]>([]);
   const socket = io("http://localhost:6969");
   const error = ref("");
 
@@ -21,20 +20,7 @@ export const useSocketStore = defineStore("socket", () => {
     socket.emit("live", cmp);
   }
 
-  function getEvents() {
-    socket.emit("getEvents");
-  }
-
-  function createEvent(name: string) {
-    socket.emit("createEvent", name);
-  }
-
   // WATCHERS
-
-  socket.on("events", (data: ICaspargusEventSummary[]) => {
-    console.log("Got events", data);
-    events.value = data;
-  });
 
   socket.on("live", (data) => {
     if (data === liveComponent.value) return;
@@ -53,12 +39,10 @@ export const useSocketStore = defineStore("socket", () => {
 
   return {
     // STATE
+    socket,
     liveComponent,
-    events,
     error,
     //ACTIONS
-    createEvent,
-    getEvents,
     sendLiveComponent,
   };
 });

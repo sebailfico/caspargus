@@ -8,8 +8,10 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import { Server } from "socket.io";
 import history from "connect-history-api-fallback";
-import { useSocketIoServer } from "./socket.io/server";
-import { MongoService } from "./services/mongoService";
+import { useSocketIoServer } from "./socket.io/socketServer";
+import { MongoServiceBase } from "./services/mongoServiceBase";
+import { EventService } from "./services/eventService";
+import { EventSummaryService } from "./services/eventSummaryService";
 
 dotenv.config();
 
@@ -29,9 +31,10 @@ const port = process.env.PORT || 3000;
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
 
-export const mongoService = new MongoService();
-
-mongoService.connect();
+// export const mongoService = new MongoServiceBase();
+// mongoService.connect();
+export const eventService = await new EventService().initialize();
+export const eventSummaryService = await new EventSummaryService().initialize();
 
 // app.use("/", express.static(join(__dirname, "/../../caspargus_fe/dist")));
 
