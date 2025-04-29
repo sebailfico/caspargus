@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue";
-import type { ICaspargusEventSummary } from "../models/ICaspargusEventSummary";
+import type { ICaspargusEventSummary, ICaspargusEvent } from "../models/ICaspargusEventSummary";
 import { useSocketStore } from "./socketStore";
 
 export interface ISocketResponse<T> {
@@ -10,6 +10,7 @@ export interface ISocketResponse<T> {
 export const useEventStore = defineStore("event", () => {
   // STATE
   const eventsSummaries = ref<ICaspargusEventSummary[]>([]);
+  const currentEvent = ref<ICaspargusEvent | null>(null);
   const store = useSocketStore();
 
   // GETTERS
@@ -19,8 +20,16 @@ export const useEventStore = defineStore("event", () => {
     store.socket.emit("getEventSummaries");
   }
 
+  function getEvent(id: string) {
+    store.socket.emit("getEvent", id);
+  }
+
   function createEventSummary(name: string) {
     store.socket.emit("createEvent", name);
+  }
+
+  function updateEvent(event: ICaspargusEvent) {
+    store.socket.emit("updateEvent", event);
   }
 
   // WATCHERS
@@ -29,11 +38,19 @@ export const useEventStore = defineStore("event", () => {
     eventsSummaries.value = data;
   });
 
+  store.socket.on("event", (data: ICaspargusEvent) => {
+    console.log("Got event", data);
+    currentEvent.value = data;
+  });
+
   return {
     // STATE
     eventsSummaries,
+    currentEvent,
     //ACTIONS
     createEventSummary,
     getEventSummaries,
+    getEvent,
+    updateEvent,
   };
 });
